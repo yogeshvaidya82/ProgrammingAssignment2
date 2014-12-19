@@ -4,7 +4,7 @@
 #source('cacheMatrix.R')
 #cacheAble <- makeCacheMatrix(m)
 #cacheSolve(cacheAble)
-#cacheSolve(cacheAble)
+#cacheSolve(cacheAble) -- this time it will come from cache.
 makeCacheMatrix <- function(m = matrix()) {
 	 mInverse <- NULL
 	 set <- function(y) {
@@ -30,8 +30,14 @@ cacheSolve <- function(m, ...) {
 		return(mInverse);
 	}
 	
+	#get the matrix object.
 	matrixObj <- m$get();
+	
+	#compute inverse of the matrix using solve.
+	#check for square matrix is handled by solve.
 	mInverse <- solve(matrixObj);
+	
+	#set the inverse so that next time we can serve from cache.
 	m$setinverse(mInverse);
 	mInverse;
 }
